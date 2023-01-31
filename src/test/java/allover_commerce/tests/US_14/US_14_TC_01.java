@@ -3,6 +3,7 @@ package allover_commerce.tests.US_14;
 import allover_commerce.pages.*;
 import allover_commerce.utilities.ConfigReader;
 import allover_commerce.utilities.Driver;
+import allover_commerce.utilities.JSUtils;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
@@ -55,16 +56,20 @@ public class US_14_TC_01 {
         login();
 
         //  Click on user icon to navigate My Account page
-        homePage.signOutButton.click();
+       // homePage.signOutButton.click();
+        JSUtils.clickElementByJS(homePage.signOutButton);
 
         //  Click on Store Manager to navigate to store manager url
-        vendorMyAccountPage.storeManager.click();
+       // vendorMyAccountPage.storeManager.click();
+        JSUtils.clickElementByJS(vendorMyAccountPage.storeManager);
 
         //  Click on Products option
-        storeManagerPageUS_14.productsOption.click();
+        //storeManagerPageUS_14.productsOption.click();
+        JSUtils.clickElementByJS(storeManagerPageUS_14.productsOption);
 
         //  Click on Add New option
-        storeManagerPageUS_14.addNewButton.click();
+        //storeManagerPageUS_14.addNewButton.click();
+        JSUtils.clickElementByJS(storeManagerPageUS_14.addNewButton);
 
         //  Verify Simple Product, Variable Product, Grouped Product, External - Affiliate Product options are available
         Select select = new Select(storeManagerPageUS_14.productTypeDropdown);
