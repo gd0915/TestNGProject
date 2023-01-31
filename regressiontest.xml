@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="Allover Commerce Project" verbose="1" >
+    <test name="Regression Test"   >
+        <packages>
+            <!-- THIS PATH IS NOT COMPLETE YET. PLEASE COMPLETE BEFORE RUN! -->
+            <!--  RUN ALL PACKAGES THAT HAS @Test annotation-->
+            <package name="allover_commerce.*" />
+        </packages>
+    </test>
+</suite>
