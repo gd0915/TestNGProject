@@ -6,6 +6,7 @@ import allover_commerce.pages.StoreManagerPageUS_14;
 import allover_commerce.pages.VendorMyAccountPage;
 import allover_commerce.utilities.ConfigReader;
 import allover_commerce.utilities.Driver;
+import allover_commerce.utilities.JSUtils;
 import allover_commerce.utilities.ReusableMethods;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -59,20 +60,20 @@ public class US_14_TC_02 {
         login();
 
         //  Click on user icon to navigate My Account page
-        ReusableMethods.waitFor(1);
-        homePage.signOutButton.click();
+        //homePage.signOutButton.click();
+        JSUtils.clickElementByJS( homePage.signOutButton);
 
         //  Click on Store Manager to navigate to store manager url
-        ReusableMethods.waitFor(1);
-        vendorMyAccountPage.storeManager.click();
+        //vendorMyAccountPage.storeManager.click();
+        JSUtils.clickElementByJS(vendorMyAccountPage.storeManager);
 
         //  Click on Products option
-        ReusableMethods.waitFor(1);
-        storeManagerPageUS_14.productsOption.click();
+       // storeManagerPageUS_14.productsOption.click();
+        JSUtils.clickElementByJS(storeManagerPageUS_14.productsOption);
 
         //  Click on Add New option
-        ReusableMethods.waitFor(1);
-        storeManagerPageUS_14.addNewButton.click();
+        //storeManagerPageUS_14.addNewButton.click();
+        JSUtils.clickElementByJS(storeManagerPageUS_14.addNewButton);
 
         //  Verify Simple Product, Variable Product, Grouped Product, External - Affiliate Product options are clickable
         Select select = new Select(storeManagerPageUS_14.productTypeDropdown);
