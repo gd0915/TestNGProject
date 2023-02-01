@@ -64,16 +64,16 @@ public class US_14_TC_09 {
         login();
 
         //  Click on user icon to navigate My Account page
-        homePageUS_12.signOutButton.click();
+        JSUtils.clickElementByJS(homePageUS_12.signOutButton);
 
         //  Click on Store Manager to navigate to store manager url
-        vendorMyAccountPageUS_12.storeManager.click();
+        JSUtils.clickElementByJS(vendorMyAccountPageUS_12.storeManager);
 
         //  Click on Products option
-        storeManagerPageUS_14.productsOption.click();
+        JSUtils.clickElementByJS(storeManagerPageUS_14.productsOption);
 
         //  Click on Add New option
-        storeManagerPageUS_14.addNewButton.click();
+        JSUtils.clickElementByJS(storeManagerPageUS_14.addNewButton);
 
         //  Click on Submit button
         ReusableMethods.waitFor(2);
