@@ -5,29 +5,20 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class HomePage {
-
-    public HomePage (){
+public class LoginPageUS_12 {
+    public LoginPageUS_12(){
         PageFactory.initElements(Driver.getDriver(), this);
     }
 
-
     //*******************HATICE US_12, US_13, US_14*******************
-    @FindBy(linkText = "Sign In")
-    public WebElement singInButton;
+    @FindBy(id = "username")
+    public WebElement usernameInput;
 
-    @FindBy(linkText = "Sign Out")
-    public WebElement signOutButton;
+    @FindBy(id = "password")
+    public WebElement passwordInput;
 
-
-
+    @FindBy(xpath = "(//button[@type='submit'])[1]")
+    public WebElement signInButton;
 
 
 }
-
-
-
-
-
-
-

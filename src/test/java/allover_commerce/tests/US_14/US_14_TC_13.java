@@ -8,19 +8,19 @@ import allover_commerce.utilities.ConfigReader;
 import allover_commerce.utilities.Driver;
 import allover_commerce.utilities.JSUtils;
 import allover_commerce.utilities.ReusableMethods;
-import org.openqa.selenium.support.ui.Select;
+import com.github.javafaker.Faker;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
-public class US_14_TC_03 {
+public class US_14_TC_13 {
 
     //  US_14 "User should be able to see the options to add items as a Vendor #1.
     //        (My Account > Store Manager > Product > Add New)"
 
-    // Acceptance Criteria : There should be Simple Product, Variable Product, Grouped Product, External - Affiliate Product options.
+    // Acceptance Criteria : Vendor should be able to add New Product brands.
 
-    //  TC_03 - Dropdown menu should be collapsed, when user click  outside  the dropdown.
+    //  TC_13 - Vendor should be able to add New Product brands.
 
     /*
     Given User should navigate to Allover Commerce url
@@ -29,12 +29,13 @@ public class US_14_TC_03 {
     And Enter password into password box
     And Click on sign in button
     And Click on user icon to navigate My Account page
-    And Click on Store Manager to navigate to store manager url
+    And Vendor should navigate to store manager url
     And Click on Products option
-    And Click on Add New option
-    And Click on dropdown to see all dropdown options
-    And Click on a space field to collapse dropdown menu
-    Then Verify dropdown menu has collapsed
+    And Click on Add New button
+    And Click on +Add new Product brands option
+    And Enter a new brand name
+    And Click on add
+    Then Verify that new brand is created in the Product brands section
      */
 
     HomePageUS_12 homePageUS_12 = new HomePageUS_12();
@@ -62,7 +63,7 @@ public class US_14_TC_03 {
     }
 
     @Test
-    public void TC_03() {
+    public void TC_13() {
 
         login();
 
@@ -78,22 +79,28 @@ public class US_14_TC_03 {
         //  Click on Add New option
         JSUtils.clickElementByJS(storeManagerPageUS_14.addNewButton);
 
-        //   Click on dropdown to see all dropdown options
-        JSUtils.clickElementByJS(storeManagerPageUS_14.productTypeDropdown);
+        //  Click on +Add new Product brands option
+        JSUtils.clickElementByJS(storeManagerPageUS_14.addNewProductBrandsButton);
 
-        //  Click on a space field to collapse dropdown menu
-        JSUtils.clickElementByJS(storeManagerPageUS_14.spaceField);
+        //  Enter a new brand name
+        Faker faker = new Faker();
+        String newBrandName = faker.name().name();
+        storeManagerPageUS_14.brandNameInput.sendKeys(newBrandName);
 
-        //  Verify dropdown menu has collapsed
+        //  Click on add
+        JSUtils.clickElementByJS(storeManagerPageUS_14.addBrandNameButton);
+
+        //  Verify that new brand is created in the Product brands section
         ReusableMethods.waitFor(2);
-        Select select = new Select(storeManagerPageUS_14.productTypeDropdown);
-        Assert.assertFalse(select.getFirstSelectedOption().getText().equals("Variable Product"));
+        //System.out.println(storeManagerPageUS_14.allBrandNames.get(0).getText());
 
+        for(WebElement eachBrand : storeManagerPageUS_14.allBrandNames){
+            if(eachBrand.getText().contains(newBrandName)){
+                Assert.assertTrue(storeManagerPageUS_14.allBrandNames.get(0).getText().contains(newBrandName));
+            }
+        }
 
     }
 
-    @AfterMethod
-    public void tearDown(){
-        //Driver.closeDriver();
-    }
+
 }

@@ -2,16 +2,14 @@ package allover_commerce.pages;
 
 import allover_commerce.utilities.Driver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
-public class VendorMyAccountPage {
+public class VendorMyAccountPageUS_12 {
 
-    public VendorMyAccountPage(){
+    public VendorMyAccountPageUS_12(){
         PageFactory.initElements(Driver.getDriver(), this);
     }
 

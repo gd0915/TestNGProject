@@ -71,4 +71,57 @@ public class StoreManagerPageUS_14 {
 
     @FindBy(xpath = "//*[@id='tinymce']/p")
     public WebElement verifyTextOfDescription;
+
+    @FindBy(xpath = "//*[@id='product_cats_checklist']/li/input")
+    public List<WebElement> categoriesCheckboxList;
+
+    @FindBy(xpath = "//*[.='+Add new category']")
+    public WebElement addNewCategory;
+
+    @FindBy(id = "wcfm_new_cat")
+    public WebElement categoryNameInput;
+
+    @FindBy(xpath = "(//button[text()='Add'])[1]")
+    public WebElement addCategoryNameButton;
+
+    @FindBy(xpath = "//*[@id='product_cats_checklist']/li/span[2]")
+    public List<WebElement> allMainCategoryNames;
+
+    @FindBy(id = "wcfm_new_parent_cat")
+    public WebElement categorySectionDropdown;
+
+    @FindBy(xpath = " //*[@id='product_cats_checklist']/li/ul/li/span")
+    public List<WebElement> allSubCategoryNames;
+
+    @FindBy(xpath = "//*[@id='product_brand']/li/input")
+    public List<WebElement> brandsCheckboxList;
+
+    @FindBy(xpath = "//*[.='+Add new Product brands']")
+    public WebElement addNewProductBrandsButton;
+
+    @FindBy(id = "wcfm_new_product_brand")
+    public WebElement brandNameInput;
+
+    @FindBy(xpath = "(//button[text()='Add'])[2]")
+    public WebElement addBrandNameButton;
+
+    @FindBy(xpath = "//*[@id='product_brand']/li")
+    public List<WebElement> allBrandNames;
+
+    @FindBy(id = "wcfm_new_parent_product_brand")
+    public WebElement brandSectionsDropdown;
+
+    @FindBy(xpath = "//*[@id='product_brand']/li/ul/li")
+    public List<WebElement> allSubBrandNames;
+
+    @FindBy(id = "product_tags")
+    public WebElement productTagsInput;
+
+    @FindBy(id = "catalog_visibility")
+    public WebElement catalogVisibilityDropdown;
+
+//    @FindBy(xpath = "//*[@id='catalog_visibility']/option")
+//    public List<WebElement> allCatVisibilityDropdownOptions;
+
+
 }

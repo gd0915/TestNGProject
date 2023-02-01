@@ -8,19 +8,21 @@ import allover_commerce.utilities.ConfigReader;
 import allover_commerce.utilities.Driver;
 import allover_commerce.utilities.JSUtils;
 import allover_commerce.utilities.ReusableMethods;
+import com.github.javafaker.Faker;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
-public class US_14_TC_03 {
+public class US_14_TC_11 {
 
     //  US_14 "User should be able to see the options to add items as a Vendor #1.
     //        (My Account > Store Manager > Product > Add New)"
 
-    // Acceptance Criteria : There should be Simple Product, Variable Product, Grouped Product, External - Affiliate Product options.
+    // Acceptance Criteria : Vendor should be able to add New Categories.
 
-    //  TC_03 - Dropdown menu should be collapsed, when user click  outside  the dropdown.
+    //  TC_11 - Category location should be selectable from dropdown menu while adding a new category.
 
     /*
     Given User should navigate to Allover Commerce url
@@ -29,14 +31,15 @@ public class US_14_TC_03 {
     And Enter password into password box
     And Click on sign in button
     And Click on user icon to navigate My Account page
-    And Click on Store Manager to navigate to store manager url
+    And Vendor should navigate to store manager url
     And Click on Products option
-    And Click on Add New option
-    And Click on dropdown to see all dropdown options
-    And Click on a space field to collapse dropdown menu
-    Then Verify dropdown menu has collapsed
+    And Click on Add New button
+    And Click on +Add new category option
+    And Enter a new category name
+    And Select a location under one of main categories from the category section dropdown
+    And Click on add
+    Then Verify that new category is created as a sub-category under a main category
      */
-
     HomePageUS_12 homePageUS_12 = new HomePageUS_12();
     LoginPageUS_12 loginPageUS_12 = new LoginPageUS_12();
 
@@ -62,7 +65,7 @@ public class US_14_TC_03 {
     }
 
     @Test
-    public void TC_03() {
+    public void TC_11() {
 
         login();
 
@@ -78,22 +81,34 @@ public class US_14_TC_03 {
         //  Click on Add New option
         JSUtils.clickElementByJS(storeManagerPageUS_14.addNewButton);
 
-        //   Click on dropdown to see all dropdown options
-        JSUtils.clickElementByJS(storeManagerPageUS_14.productTypeDropdown);
+        //  Click on +Add new category option
+        JSUtils.clickElementByJS(storeManagerPageUS_14.addNewCategory);
 
-        //  Click on a space field to collapse dropdown menu
-        JSUtils.clickElementByJS(storeManagerPageUS_14.spaceField);
+        //  Enter a new category name
+        Faker faker = new Faker();
+        String newCategoryName = faker.name().name();
+        storeManagerPageUS_14.categoryNameInput.sendKeys(newCategoryName);
 
-        //  Verify dropdown menu has collapsed
-        ReusableMethods.waitFor(2);
-        Select select = new Select(storeManagerPageUS_14.productTypeDropdown);
-        Assert.assertFalse(select.getFirstSelectedOption().getText().equals("Variable Product"));
+        //  Select a location under one of main categories from the category section dropdown
+        Select select = new Select(storeManagerPageUS_14.categorySectionDropdown);
+        select.selectByVisibleText(storeManagerPageUS_14.allMainCategoryNames.get(0).getText());
 
+        //  Click on add
+        JSUtils.clickElementByJS(storeManagerPageUS_14.addCategoryNameButton);
+        Driver.getDriver().navigate().refresh();
+
+        //  Verify that new category is created as a sub-category under a main category
+        ReusableMethods.waitFor(1);
+        for(WebElement eachCategory : storeManagerPageUS_14.allSubCategoryNames){
+            if(eachCategory.getText().equals(newCategoryName)){
+                Assert.assertTrue(eachCategory.getText().equals(newCategoryName));
+            }
+        }
 
     }
 
     @AfterMethod
     public void tearDown(){
-        //Driver.closeDriver();
+        Driver.closeDriver();
     }
 }

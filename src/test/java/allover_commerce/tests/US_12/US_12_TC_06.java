@@ -1,8 +1,8 @@
 package allover_commerce.tests.US_12;
 
-import allover_commerce.pages.HomePage;
-import allover_commerce.pages.LoginPage;
-import allover_commerce.pages.VendorMyAccountPage;
+import allover_commerce.pages.HomePageUS_12;
+import allover_commerce.pages.LoginPageUS_12;
+import allover_commerce.pages.VendorMyAccountPageUS_12;
 import allover_commerce.utilities.ConfigReader;
 import allover_commerce.utilities.Driver;
 import allover_commerce.utilities.JSUtils;
@@ -10,6 +10,13 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class US_12_TC_06 {
+
+    // US_12 : "Vendor should be able to add Billing Address. (My Account > Addresses > Billing Address)"
+
+    // Acceptance Criteria : The registered email address should be filled in automatically.
+
+    // TC_06 : The registered email address should be filled in automatically.
+
     /*
     Given User should navigate to Allover Commerce url
     When Click on sign in button
@@ -22,25 +29,25 @@ public class US_12_TC_06 {
     Then Verify the registered email is displayed on the site
      */
 
-    HomePage homePage = new HomePage();
-    LoginPage loginPage = new LoginPage();
-    VendorMyAccountPage vendorMyAccountPage = new VendorMyAccountPage();
+    HomePageUS_12 homePageUS_12 = new HomePageUS_12();
+    LoginPageUS_12 loginPageUS_12 = new LoginPageUS_12();
+    VendorMyAccountPageUS_12 vendorMyAccountPageUS_12 = new VendorMyAccountPageUS_12();
 
     public void login() {
         //    User should navigate to Allover Commerce url https://allovercommerce.com/
         Driver.getDriver().get(ConfigReader.getProperty("app_home_url"));
 
         //    Click on sign in button
-        homePage.singInButton.click();
+        homePageUS_12.singInButton.click();
 
         //    Enter username into username/email box
-        loginPage.usernameInput.sendKeys(ConfigReader.getProperty("app_vendor_valid_email2"));
+        loginPageUS_12.usernameInput.sendKeys(ConfigReader.getProperty("app_vendor_valid_email2"));
 
         //    Enter password into password box
-        loginPage.passwordInput.sendKeys(ConfigReader.getProperty("app_vendor_valid_password2"));
+        loginPageUS_12.passwordInput.sendKeys(ConfigReader.getProperty("app_vendor_valid_password2"));
 
         //    Click on sign in button
-        loginPage.signInButton.click();
+        loginPageUS_12.signInButton.click();
     }
 
     @Test
@@ -48,13 +55,13 @@ public class US_12_TC_06 {
         login();
 
 //        Click on user icon to navigate My Account page
-        homePage.signOutButton.click();
+        JSUtils.clickElementByJS(homePageUS_12.signOutButton);
 
 //        And Click on Addresses button
-        vendorMyAccountPage.addressesOption.click();
+        JSUtils.clickElementByJS(vendorMyAccountPageUS_12.addressesOption);
 
 //        And Click add button under the Billing Address
-        vendorMyAccountPage.editBillingAddressButton.click();
+        JSUtils.clickElementByJS(vendorMyAccountPageUS_12.editBillingAddressButton);
 
 //        Then Verify the registered email is displayed on the site
         Assert.assertEquals(JSUtils.getValueInStringByJS("billing_email"), "tiselamono@jollyfree.com");

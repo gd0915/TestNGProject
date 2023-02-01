@@ -1,8 +1,8 @@
 package allover_commerce.tests.US_12;
 
-import allover_commerce.pages.HomePage;
-import allover_commerce.pages.LoginPage;
-import allover_commerce.pages.VendorMyAccountPage;
+import allover_commerce.pages.HomePageUS_12;
+import allover_commerce.pages.LoginPageUS_12;
+import allover_commerce.pages.VendorMyAccountPageUS_12;
 import allover_commerce.utilities.ConfigReader;
 import allover_commerce.utilities.Driver;
 import allover_commerce.utilities.JSUtils;
@@ -10,10 +10,18 @@ import allover_commerce.utilities.ReusableMethods;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class US_12_TC_07 {
+
+    // US_12 : "Vendor should be able to add Billing Address. (My Account > Addresses > Billing Address)"
+
+    // Acceptance Criteria : After clicking 'Save Address', the Billing Address should be added.
+
+    // TC_07 : After clicking 'Save Address', the Billing Address should be added.
+
     /*
     Given User should navigate to Allover Commerce url
     When Click on sign in button
@@ -35,9 +43,9 @@ public class US_12_TC_07 {
     Then Verify billing address added successfully
      */
 
-    HomePage homePage = new HomePage();
-    LoginPage loginPage = new LoginPage();
-    VendorMyAccountPage vendorMyAccountPage = new VendorMyAccountPage();
+    HomePageUS_12 homePageUS_12 = new HomePageUS_12();
+    LoginPageUS_12 loginPageUS_12 = new LoginPageUS_12();
+    VendorMyAccountPageUS_12 vendorMyAccountPageUS_12 = new VendorMyAccountPageUS_12();
 
     @DataProvider
     public Object[][] vendorData(){
@@ -54,16 +62,16 @@ public class US_12_TC_07 {
         Driver.getDriver().get(ConfigReader.getProperty("app_home_url"));
 
         //    Click on sign in button
-        homePage.singInButton.click();
+        homePageUS_12.singInButton.click();
 
         //    Enter username into username/email box
-        loginPage.usernameInput.sendKeys(ConfigReader.getProperty("app_vendor_valid_email2"));
+        loginPageUS_12.usernameInput.sendKeys(ConfigReader.getProperty("app_vendor_valid_email2"));
 
         //    Enter password into password box
-        loginPage.passwordInput.sendKeys(ConfigReader.getProperty("app_vendor_valid_password2"));
+        loginPageUS_12.passwordInput.sendKeys(ConfigReader.getProperty("app_vendor_valid_password2"));
 
         //    Click on sign in button
-        loginPage.signInButton.click();
+        loginPageUS_12.signInButton.click();
     }
 
     @Test(dataProvider = "vendorData")
@@ -71,64 +79,69 @@ public class US_12_TC_07 {
         login();
 
         //     Click on user icon to navigate My Account page
-        homePage.signOutButton.click();
+        JSUtils.clickElementByJS(homePageUS_12.signOutButton);
 
         //     Click on Addresses button
-        vendorMyAccountPage.addressesOption.click();
+        JSUtils.clickElementByJS(vendorMyAccountPageUS_12.addressesOption);
 
         //     Click add button under the Billing Address
         ReusableMethods.waitFor(1);
-        vendorMyAccountPage.editBillingAddressButton.click();
+        JSUtils.clickElementByJS(vendorMyAccountPageUS_12.editBillingAddressButton);
 
         //     Enter invalid firstname into First name box
-        vendorMyAccountPage.vendorFirstnameInput.clear();
-        vendorMyAccountPage.vendorFirstnameInput.sendKeys(firstname);
+        vendorMyAccountPageUS_12.vendorFirstnameInput.clear();
+        vendorMyAccountPageUS_12.vendorFirstnameInput.sendKeys(firstname);
 
         //    Enter invalid lastname into Last name box
-        vendorMyAccountPage.vendorLastnameInput.clear();
-        vendorMyAccountPage.vendorLastnameInput.sendKeys(lastname);
+        vendorMyAccountPageUS_12.vendorLastnameInput.clear();
+        vendorMyAccountPageUS_12.vendorLastnameInput.sendKeys(lastname);
 
         //    Enter Country/Region into County/Region box
-        Select selectCountry = new Select(vendorMyAccountPage.countryDropdown);
+        Select selectCountry = new Select(vendorMyAccountPageUS_12.countryDropdown);
         selectCountry.selectByVisibleText("Canada");
 
         //    Enter a Street address into Street address box
-        vendorMyAccountPage.streetInput.clear();
-        vendorMyAccountPage.streetInput.sendKeys(street);
+        vendorMyAccountPageUS_12.streetInput.clear();
+        vendorMyAccountPageUS_12.streetInput.sendKeys(street);
 
         //    Enter a Town/City into Town/City box
-        vendorMyAccountPage.cityInput.clear();
-        vendorMyAccountPage.cityInput.sendKeys(city);
+        vendorMyAccountPageUS_12.cityInput.clear();
+        vendorMyAccountPageUS_12.cityInput.sendKeys(city);
 
         //    Enter a state into State box
-        Select selectState = new Select(vendorMyAccountPage.stateDropdown);
+        Select selectState = new Select(vendorMyAccountPageUS_12.stateDropdown);
         selectState.selectByVisibleText("Ontario");
 
         //    Enter a Zip Code into ZipCode box
-        vendorMyAccountPage.zipcodeInput.clear();
+        vendorMyAccountPageUS_12.zipcodeInput.clear();
         ReusableMethods.waitFor(1);
-        vendorMyAccountPage.zipcodeInput.sendKeys(zipcode);
+        vendorMyAccountPageUS_12.zipcodeInput.sendKeys(zipcode);
 
         //     Enter a Phone number
-        vendorMyAccountPage.vendorPhoneInput.clear();
-        vendorMyAccountPage.vendorPhoneInput.sendKeys(phone);
+        vendorMyAccountPageUS_12.vendorPhoneInput.clear();
+        vendorMyAccountPageUS_12.vendorPhoneInput.sendKeys(phone);
 
         //     Click on save address button
         ReusableMethods.waitFor(2);
-        JSUtils.clickElementByJS(vendorMyAccountPage.saveAddressButton);
+        JSUtils.clickElementByJS(vendorMyAccountPageUS_12.saveAddressButton);
 
         //     Verify billing address added successfully
         // 1st way
         ReusableMethods.waitFor(2);
         //System.out.println(vendorMyAccountPage.addressChangeSuccessMessage.getText());
-        Assert.assertTrue(vendorMyAccountPage.addressChangeSuccessMessage.isDisplayed());
+        Assert.assertTrue(vendorMyAccountPageUS_12.addressChangeSuccessMessage.isDisplayed());
 
         //2nd way ==>>address elements are displayed
-        for(WebElement eachBillingAddressTableElement : vendorMyAccountPage.allBillingAddressTableElements){
+        for(WebElement eachBillingAddressTableElement : vendorMyAccountPageUS_12.allBillingAddressTableElements){
             ReusableMethods.waitFor(1);
             Assert.assertTrue(eachBillingAddressTableElement.isDisplayed());
         }
 
+    }
+
+    @AfterMethod
+    public void tearDown(){
+        Driver.closeDriver();
     }
 
 }

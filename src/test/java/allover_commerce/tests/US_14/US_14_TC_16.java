@@ -7,35 +7,37 @@ import allover_commerce.pages.VendorMyAccountPageUS_12;
 import allover_commerce.utilities.ConfigReader;
 import allover_commerce.utilities.Driver;
 import allover_commerce.utilities.JSUtils;
-import allover_commerce.utilities.ReusableMethods;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
-public class US_14_TC_03 {
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-    //  US_14 "User should be able to see the options to add items as a Vendor #1.
+public class US_14_TC_16 {
+
+    // US_14 "User should be able to see the options to add items as a Vendor #1.
     //        (My Account > Store Manager > Product > Add New)"
 
-    // Acceptance Criteria : There should be Simple Product, Variable Product, Grouped Product, External - Affiliate Product options.
+    // Acceptance Criteria : Catalog visibility; should be selectable as Shop and search results, Shop only, Search results only, Hidden.
 
-    //  TC_03 - Dropdown menu should be collapsed, when user click  outside  the dropdown.
-
-    /*
+    // TC_16 - Catalog visibility; should be selectable as Shop and search results, Shop only, Search results only, Hidden.
+/*
     Given User should navigate to Allover Commerce url
     When Click on sign in button
     And Enter username into username/email box
     And Enter password into password box
     And Click on sign in button
     And Click on user icon to navigate My Account page
-    And Click on Store Manager to navigate to store manager url
+    And Vendor should navigate to store manager url
     And Click on Products option
-    And Click on Add New option
-    And Click on dropdown to see all dropdown options
-    And Click on a space field to collapse dropdown menu
-    Then Verify dropdown menu has collapsed
-     */
+    And Click on Add New button
+    And Click on Catalog visibility dropdown
+    Then Verify dropdown has 4 options named as Shop and search results, Shop only, Search results only, Hidden
+ */
 
     HomePageUS_12 homePageUS_12 = new HomePageUS_12();
     LoginPageUS_12 loginPageUS_12 = new LoginPageUS_12();
@@ -62,7 +64,7 @@ public class US_14_TC_03 {
     }
 
     @Test
-    public void TC_03() {
+    public void TC_16() {
 
         login();
 
@@ -78,22 +80,26 @@ public class US_14_TC_03 {
         //  Click on Add New option
         JSUtils.clickElementByJS(storeManagerPageUS_14.addNewButton);
 
-        //   Click on dropdown to see all dropdown options
-        JSUtils.clickElementByJS(storeManagerPageUS_14.productTypeDropdown);
-
-        //  Click on a space field to collapse dropdown menu
-        JSUtils.clickElementByJS(storeManagerPageUS_14.spaceField);
-
-        //  Verify dropdown menu has collapsed
-        ReusableMethods.waitFor(2);
-        Select select = new Select(storeManagerPageUS_14.productTypeDropdown);
-        Assert.assertFalse(select.getFirstSelectedOption().getText().equals("Variable Product"));
-
+        //  Click on Catalog visibility dropdown
+        //  Verify dropdown has 4 options named as Shop and search results, Shop only, Search results only, Hidden
+        Select select = new Select(storeManagerPageUS_14.catalogVisibilityDropdown);
+        List<WebElement> allDropdownOptions = select.getOptions();
+        List<String> optionNames = new ArrayList<>(Arrays.asList("Shop and search results", "Shop only", "Search results only", "Hidden"));
+        boolean isOptionsExist = false;
+        int idx = 0;
+        for(WebElement eachOption : allDropdownOptions){
+            if(eachOption.getText().equals(optionNames.get(idx)));
+            isOptionsExist = true;
+            idx++;
+        }
+        Assert.assertTrue(isOptionsExist);
 
     }
 
     @AfterMethod
-    public void tearDown(){
-        //Driver.closeDriver();
+    public void tearDown() {
+        Driver.closeDriver();
     }
+
+
 }

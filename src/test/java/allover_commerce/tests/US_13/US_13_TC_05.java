@@ -1,8 +1,8 @@
 package allover_commerce.tests.US_13;
 
-import allover_commerce.pages.HomePage;
-import allover_commerce.pages.LoginPage;
-import allover_commerce.pages.VendorMyAccountPage;
+import allover_commerce.pages.HomePageUS_12;
+import allover_commerce.pages.LoginPageUS_12;
+import allover_commerce.pages.VendorMyAccountPageUS_12;
 import allover_commerce.utilities.ConfigReader;
 import allover_commerce.utilities.Driver;
 import allover_commerce.utilities.JSUtils;
@@ -14,6 +14,13 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class US_13_TC_05 {
+
+    // US_13 : "Vendor should be able to add Shipping Address. (My Account > Addresses > Shipping Address)"
+
+    // Acceptance Criteria : After clicking 'Save Address', the Shipping Address should be added.
+
+    // TC_05 : After clicking 'Save Address', the Shipping Address should be added.
+
     /*
     Given User should navigate to Allover Commerce url
     When Click on sign in button
@@ -33,9 +40,9 @@ public class US_13_TC_05 {
     And Click on save address button
     Then Verify shipping address added successfully
      */
-    HomePage homePage = new HomePage();
-    LoginPage loginPage = new LoginPage();
-    VendorMyAccountPage vendorMyAccountPage = new VendorMyAccountPage();
+    HomePageUS_12 homePageUS_12 = new HomePageUS_12();
+    LoginPageUS_12 loginPageUS_12 = new LoginPageUS_12();
+    VendorMyAccountPageUS_12 vendorMyAccountPageUS_12 = new VendorMyAccountPageUS_12();
 
     @DataProvider
     public Object[][] vendorData(){
@@ -52,16 +59,16 @@ public class US_13_TC_05 {
         Driver.getDriver().get(ConfigReader.getProperty("app_home_url"));
 
         //    Click on sign in button
-        homePage.singInButton.click();
+        homePageUS_12.singInButton.click();
 
         //    Enter username into username/email box
-        loginPage.usernameInput.sendKeys(ConfigReader.getProperty("app_vendor_valid_email2"));
+        loginPageUS_12.usernameInput.sendKeys(ConfigReader.getProperty("app_vendor_valid_email2"));
 
         //    Enter password into password box
-        loginPage.passwordInput.sendKeys(ConfigReader.getProperty("app_vendor_valid_password2"));
+        loginPageUS_12.passwordInput.sendKeys(ConfigReader.getProperty("app_vendor_valid_password2"));
 
         //    Click on sign in button
-        loginPage.signInButton.click();
+        loginPageUS_12.signInButton.click();
     }
 
     @Test(dataProvider = "vendorData")
@@ -70,50 +77,50 @@ public class US_13_TC_05 {
         login();
 
         //    Click on user icon to navigate My Account page
-        homePage.signOutButton.click();
+        JSUtils.clickElementByJS(homePageUS_12.signOutButton);
 
         //    Click on Addresses button
-        vendorMyAccountPage.addressesOption.click();
+        JSUtils.clickElementByJS(vendorMyAccountPageUS_12.addressesOption);
 
         //    Click add button under the Shipping Address
-        vendorMyAccountPage.addShippingAddressButton.click();
+        JSUtils.clickElementByJS(vendorMyAccountPageUS_12.addShippingAddressButton);
 
         //    Enter firstname into First name box
-        vendorMyAccountPage.vendorShippingFirstNameInput.clear();
-        vendorMyAccountPage.vendorShippingFirstNameInput.sendKeys(firstname);
+        vendorMyAccountPageUS_12.vendorShippingFirstNameInput.clear();
+        vendorMyAccountPageUS_12.vendorShippingFirstNameInput.sendKeys(firstname);
 
         //    Enter lastname into Last name box
-        vendorMyAccountPage.vendorShippingLastNameInput.clear();
-        vendorMyAccountPage.vendorShippingLastNameInput.sendKeys(lastname);
+        vendorMyAccountPageUS_12.vendorShippingLastNameInput.clear();
+        vendorMyAccountPageUS_12.vendorShippingLastNameInput.sendKeys(lastname);
 
         //    Enter Country/Region into County/Region box
-        Select selectCountry = new Select(vendorMyAccountPage.shippingCountryDropdown);
+        Select selectCountry = new Select(vendorMyAccountPageUS_12.shippingCountryDropdown);
         selectCountry.selectByVisibleText("Canada");
 
         //    Enter a Street address into Street address box
-        vendorMyAccountPage.shippingStreetInput.clear();
-        vendorMyAccountPage.shippingStreetInput.sendKeys(street);
+        vendorMyAccountPageUS_12.shippingStreetInput.clear();
+        vendorMyAccountPageUS_12.shippingStreetInput.sendKeys(street);
 
         //    Enter a Town/City into Town/City box
-        vendorMyAccountPage.shippingCityInput.clear();
-        vendorMyAccountPage.shippingCityInput.sendKeys(city);
+        vendorMyAccountPageUS_12.shippingCityInput.clear();
+        vendorMyAccountPageUS_12.shippingCityInput.sendKeys(city);
 
         //    Enter a state into State box
-        Select selectState = new Select(vendorMyAccountPage.shippingStateDropdown);
+        Select selectState = new Select(vendorMyAccountPageUS_12.shippingStateDropdown);
         selectState.selectByVisibleText("Ontario");
 
         //    Enter a Zip Code into ZipCode box
-        vendorMyAccountPage.shippingZipcodeInput.clear();
-        vendorMyAccountPage.shippingZipcodeInput.sendKeys(zipcode);
+        vendorMyAccountPageUS_12.shippingZipcodeInput.clear();
+        vendorMyAccountPageUS_12.shippingZipcodeInput.sendKeys(zipcode);
 
         //    Click on save address button
         ReusableMethods.waitFor(2);
-        JSUtils.clickElementByJS(vendorMyAccountPage.saveAddressButton);
+        JSUtils.clickElementByJS(vendorMyAccountPageUS_12.saveAddressButton);
 
         //    Then Verify shipping address added successfully
         ReusableMethods.waitFor(2);
         //System.out.println(vendorMyAccountPage.addressChangeSuccessMessage.getText());
-        Assert.assertTrue(vendorMyAccountPage.addressChangeSuccessMessage.isDisplayed());
+        Assert.assertTrue(vendorMyAccountPageUS_12.addressChangeSuccessMessage.isDisplayed());
 
     }
 
