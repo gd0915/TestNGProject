@@ -11,6 +11,7 @@ import allover_commerce.utilities.ReusableMethods;
 import com.github.javafaker.Faker;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 public class US_14_TC_13 {
@@ -100,6 +101,11 @@ public class US_14_TC_13 {
             }
         }
 
+    }
+
+    @AfterMethod
+    public void tearDown(){
+        Driver.closeDriver();
     }
 
 

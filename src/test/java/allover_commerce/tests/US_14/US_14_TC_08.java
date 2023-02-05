@@ -13,6 +13,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 public class US_14_TC_08 {
+
     //  US_14 "User should be able to see the options to add items as a Vendor #1.
     //        (My Account > Store Manager > Product > Add New)"
 

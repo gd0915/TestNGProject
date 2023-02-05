@@ -4,12 +4,14 @@ import allover_commerce.pages.*;
 import allover_commerce.utilities.ConfigReader;
 import allover_commerce.utilities.Driver;
 import allover_commerce.utilities.JSUtils;
+import allover_commerce.utilities.ReusableMethods;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -59,7 +61,7 @@ public class US_14_TC_01 {
     }
 
     @Test
-    public void TC_01(){
+    public void TC_01() {
 
         login();
 

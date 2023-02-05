@@ -4,15 +4,14 @@ import allover_commerce.pages.HomePageUS_12;
 import allover_commerce.pages.LoginPageUS_12;
 import allover_commerce.pages.StoreManagerPageUS_14;
 import allover_commerce.pages.VendorMyAccountPageUS_12;
-import allover_commerce.utilities.ConfigReader;
-import allover_commerce.utilities.Driver;
-import allover_commerce.utilities.JSUtils;
-import allover_commerce.utilities.ReusableMethods;
+import allover_commerce.utilities.*;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
-public class US_14_TC_05 {
+import java.io.IOException;
+
+public class US_14_TC_05 extends ExtentReportUtils{
 
     //  US_14 "User should be able to see the options to add items as a Vendor #1.
     //        (My Account > Store Manager > Product > Add New)"
@@ -44,6 +43,8 @@ public class US_14_TC_05 {
 
     StoreManagerPageUS_14 storeManagerPageUS_14 = new StoreManagerPageUS_14();
 
+   // ExtentReportUtils extentReportUtils = new ExtentReportUtils();
+
     public void login() {
         //    User should navigate to Allover Commerce url https://allovercommerce.com/
         Driver.getDriver().get(ConfigReader.getProperty("app_home_url"));
@@ -62,36 +63,47 @@ public class US_14_TC_05 {
     }
 
     @Test
-    public void TC_05() {
+    public void TC_05() throws IOException {
 
         login();
 
         //  Click on user icon to navigate My Account page
         JSUtils.clickElementByJS(homePageUS_12.signOutButton);
+        extentTest.info("clicked on user icon to navigate My Account page");
+
 
         //  Click on Store Manager to navigate to store manager url
         JSUtils.clickElementByJS(vendorMyAccountPageUS_12.storeManager);
+        extentTest.info("clicked on Store Manager to navigate to store manager url");
 
         //  Click on Products option
         JSUtils.clickElementByJS(storeManagerPageUS_14.productsOption);
+        extentTest.info("clicked on Products option");
 
         //  Click on Add New option
         JSUtils.clickElementByJS(storeManagerPageUS_14.addNewButton);
+        extentTest.info("clicked on add new option");
 
         //  Click on gallery image display
         JSUtils.clickElementByJS(storeManagerPageUS_14.addGalleryPhotoIcon);
+        extentTest.info("clicked on gallery image display");
 
         //  Select an image file from computer
         String userHOME=System.getProperty("user.home");
         String pathOfFile = userHOME + "\\Downloads\\ballimage.jpg";
         storeManagerPageUS_14.selectFilesButton.sendKeys(pathOfFile);
+        extentTest.info("selected a file from computer");
 
         //  Click on select button to complete uploading image
         ReusableMethods.waitFor(3);
         storeManagerPageUS_14.addToGalleryButton.click();
+        extentTest.info("clicked on select button to complete uploading image");
 
         // Verify image is displayed on the page
+        ReusableMethods.waitFor(2);
+        ReusableMethods.getScreenshot("screenshot");
         Assert.assertTrue(storeManagerPageUS_14.removeGalleryImgButton.isDisplayed());
+        extentTest.pass("verified the uploaded image is displayed on the web page");
 
     }
 
